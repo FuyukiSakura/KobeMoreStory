@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<title>靠北模物語</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+		<!-- Bootstrap CDN -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		
+		<!-- Inline Attachment Plugin -->
+		<script src="bower_components/inline-attachment/src/inline-attachment.js"></script>
+        <script src="bower_components/inline-attachment/src/jquery.inline-attachment.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('textarea').inlineattachment({
+                    uploadUrl: 'https://api.imgur.com/3/image.json',
+					uploadFieldName: 'image',
+					urlText: '![image]({filename})\n',
+					extraHeaders:{
+						Authorization: 'Client-ID b76ad12ff380303'
+					}
+                });
+            });
+        </script>
+		
+		<!-- Custom CSS and scripts -->
+		<link href="./images/favicon.png" rel="shortcut icon">
+		<link rel="stylesheet" href="./css/style.css" />
+		<script src="./scripts/kobe.js"></script>
+	</head>
+	<body>
+		<!-- Facebook SDK -->
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=116338795135258";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		
+		<!-- Body -->
+		<div id="notification-area"></div>
+		<div id="loading" style="display:none"></div>
+		<div class="container" id="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-8 col-md-offset-2">
+					<div class="jumbotron text-center">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-3 vcenter">
+								<img id="main-logo" class="img-responsive" src="./images/logo.png" />
+							</div>
+							<div class="col-xs-12 col-sm-7 col-md-8 vcenter">
+								<div class="row">
+									<div class="col-12">
+										<h1>靠北模物語</h1>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<h2>KobeMoreStory</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-7 col-md-6 col-lg-7">
+							<span>小編水準態度低下不是一兩天的事，多次劇透就算了，還屢次侵權嫌疑。<br /><br />歡迎各位提供各種模物語的種種惡行惡狀<br />我們保證不洩漏爆料者的任何資訊<br />請踴躍爆料喔 ^^<br /><br />948794狂 (By狂新聞 </span>
+						</div>
+						<div class="col-xs-12 col-sm-5 col-md-6 col-lg-5">
+							<div class="fb-page" data-href="https://www.facebook.com/kobemorestory/" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/kobemorestory/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/kobemorestory/">靠北模物語</a></blockquote></div>
+						</div>
+					</div>
+					<hr />
+					<form id="kobe-form">
+						<fieldset>
+							<div class="page-header">
+								<label class="control-label"> 靠北內容 </label>
+							</div>
+							<div class="col-md-12">
+								<label class="control-label">如需附上圖片，可以直接「拖放圖片到內容輸入框框」或「直接從剪貼簿貼上」</label>
+			    			<div class="form-group">
+			    				<div id="mode-selection" class="row">
+										<div class="col-md-12">
+											<button data-mode="text" type="button" class="btn-mode btn-active">純文字</button>
+											<button data-mode="image" type="button" class="btn-mode">圖片</button>
+										</div>
+			    				</div>
+			    				<input type="hidden" name="kobe-mode" id="kobe-mode" value="text" />
+			    			</div>
+			    		</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<textarea class="form-control" id="kobe-msg" name="kobe-msg" placeholder="你今天要靠北什麼？" maxlength="1000" rows="8"></textarea>
+									<span id="kobe-remain">0/1000</span>
+									<button class="file-upload pull-right">            
+										<input type="file" id="file-upload" class="file-input">上傳檔案
+									</button>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="preview-box" style="display:none">
+										<div class="col-md-12">
+						    			<div class="form-group">
+						    				<div id="color-selection" class="row">
+													<button data-color="black" type="button" class="btn-mode btn-color btn-color-black btn-active">黑色</button>
+													<button data-color="yellow" type="button" class="btn-mode btn-color btn-color-yellow">黃色</button>
+													<button data-color="blue" type="button" class="btn-mode btn-color btn-color-blue">藍色</button>
+													<button data-color="green" type="button" class="btn-mode btn-color btn-color-green">綠色</button>
+													<button data-color="orange" type="button" class="btn-mode btn-color btn-color-orange">橘色</button>
+													<button data-color="pink" type="button" class="btn-mode btn-color btn-color-pink">粉紅色</button>
+													<button data-color="warn" type="button" class="btn-mode btn-color btn-color-warn">報復社會</button>
+													<br />
+						    				</div>
+						    				<input type="hidden" name="kobe-color" id="kobe-color" value="black" />
+						    			</div>
+						    		</div>
+
+										<div class="col-md-12 kobe-preview">
+											<div class="jumbotron text-center">
+												<span class="label label-default">預覽</span>
+												<div id="kobe-image-preview">
+													<img id="kobe-image" src="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-check">
+									<label class="form-check-label">
+									  <input type="checkbox" id="kobe-agreement" name="kobe-agreement" class="form-check-input">
+									  我同意並已詳細閱讀<a id="terms-toggle" href="#">使用條款、隱私權政策</a>及準備好要靠北了
+									</label>
+								</div>
+								<div id="terms" class="form-group" style="display:none">
+									<div class="panel panel-default">
+										<div class="panel-heading">靠北模物語發文守則</div>
+										<div class="panel-body">
+											<ol>
+											  <li>當你勾選後，即代表您同意遵守 Facebook 社群使用規則.</li>
+											  <li>靠北勿透漏任何個資或隱私資訊</li>
+											  <li>嚴禁發表任何情色、暴力之相關內容，或有相關意圖之內容，違反將被刪除</li>
+											  <li>與本版主題無關、或發文內容明顯為測試意圖、或無關之推薦文、廣告文、職缺文，將被刪除</li>
+											  <li>請善用「███」取代敏感字詞</li>
+											  <li>轉載他人圖片，請註明圖片出處</li>
+											  <li>轉載他人原創發文時，一律需經過原作者同意並註明出處</li>
+											</ol>
+										</div>
+									</div>
+
+									<div class="panel panel-default">
+										<div class="panel-heading">靠北模物語隱私權政策</div>
+										<div class="panel-body">
+											<textarea class="form-control" rows="8" readonly>
+非常歡迎您光臨 靠北模物語 發文頁面(以下簡稱本頁面)，為了讓您能夠安心的使用本頁面的各項服務與資訊，特此向您說明本頁面的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
+一、隱私權保護政策的適用範圍 隱私權保護政策內容，包括本頁面如何處理在您使用靠北服務時收集到的個人識別資料。隱私權保護政策不適用於本頁面以外的相關連結頁面，也不適用於非本頁面所委託或參與管理的人員。
+二、資料的蒐集與使用方式 為了在本頁面上提供您最佳的互動性服務，可能會請您提供相關個人的資料，其範圍如下：於使用發文服務時，伺服器會自行記錄相關行徑，包括您使用連線設備的去識別性的IP位址、使用時間，做為我們增進相關服務的優化等參考依據。
+三、資料之保護 本頁面主機來自 澳大利亞烏托科技 提供的服務，資料將上傳至Google雲端保存，通訊均以 安全通訊協定SSL3.0加密，且設有CloudFlare防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護此頁面及您的個人資料採用嚴格的保護措施。
+四、粉絲專頁對外的相關連結，該連結網站不適用本頁面的隱私權保護政策，您必須參考該連結網站中的隱私權保護政策。
+五、隱私權保護政策之修正 本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於靠北模物語上。</textarea>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<button id="submit" type="button" class="btn btn-lg btn-block">發送靠北</button>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<footer>
+				<div class="row">
+					<hr />
+					<div class="col-md-8 col-md-offset-2">
+						<span class="system-name">靠北模物語2.1 BETA</span>
+						<span>Provided By <a href="https://snitchkami.com/">SnitchKami v0.2.0a</a> - </span>
+						<span class="company-name">UTOSOFT Co.</span>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<!-- Large modal -->
+		<div class="modal fade" id="modal-posted" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		        <h4 class="modal-title">發怖成功</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p><span id="modal-message">感謝你的輸入，管理員會盡快處理並發怖你的靠北！</span></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">發怖新靠北</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</body>
+</html>
